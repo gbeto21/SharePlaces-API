@@ -35,7 +35,7 @@ const signup = async (req, res, next) => {
         )
     }
 
-    const { name, email, password, places } = req.body
+    const { name, email, password } = req.body
     let existingUser
     try {
         existingUser = await User.findOne({ email: email })
@@ -56,7 +56,7 @@ const signup = async (req, res, next) => {
         email,
         image: 'https://www.computerhope.com/jargon/g/guest-user.jpg',
         password,
-        places
+        places: []
     })
 
     try {
