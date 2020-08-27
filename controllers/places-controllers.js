@@ -7,20 +7,6 @@ const Place = require('../models/place')
 const User = require('../models/user');
 const mongoose = require('mongoose')
 
-let DUMMY_PLACES = [
-    {
-        id: 'p1',
-        title: 'Empire state building',
-        description: 'One of the most famous sky scrapers in the world!',
-        location: {
-            lat: 40.7484474,
-            lng: -73.9861516
-        },
-        address: '20 W 34th St, New York, NY 10001',
-        creator: 'u1'
-    }
-]
-
 const getPlaceById = async (req, res, next) => {
     const placeId = req.params.pid
     let place
@@ -45,7 +31,6 @@ const getPlaceById = async (req, res, next) => {
 
 const getPlacesByUserId = async (req, res, next) => {
     const userId = req.params.uid
-    //let places
     let userWithPlaces
 
     try {
@@ -104,8 +89,6 @@ const createPlace = async (req, res, next) => {
         const error = new HttpError('Could not find user for provided id.', 404)
         return next(error)
     }
-
-    console.log(user);
 
     try {
         const sess = await mongoose.startSession()
@@ -189,7 +172,6 @@ const deletePlace = async (req, res, next) => {
         await place.creator.save({ session: sess })
         await sess.commitTransaction()
     } catch (error) {
-        console.log(error);
         const err = new HttpError(
             'Something went wrong deleting the place, could not delete place',
             500
