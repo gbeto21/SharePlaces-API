@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
         next()
 
     } catch (error) {
-        const err = new HttpError('Authentication failed!', 401)
+        const err = new HttpError('Authentication failed!', 403)
         return next(err)
     }
 
