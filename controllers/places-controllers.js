@@ -64,13 +64,13 @@ const createPlace = async (req, res, next) => {
         throw new HttpError('Invalid input passed, please check your data.', 422)
     }
 
-    const { title, description, coordinates, address, creator } = req.body
+    const { title, description, lat, lng, address, creator } = req.body
     const createdPlace = new Place({
         title,
         description,
         address,
-        location: coordinates,
-        image: 'https://upload.wikimedia.org/wikipedia/commons/1/10/Empire_State_Building_%28aerial_view%29.jpg',
+        location: { lat, lng },
+        image: req.file.path,
         creator
     })
 
