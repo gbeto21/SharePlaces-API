@@ -42,7 +42,7 @@ const signup = async (req, res, next) => {
     const createdUser = new User({
         name,
         email,
-        image: 'https://www.computerhope.com/jargon/g/guest-user.jpg',
+        image: req.file.path,
         password,
         places: []
     })
