@@ -65,19 +65,19 @@ const createPlace = async (req, res, next) => {
         throw new HttpError('Invalid input passed, please check your data.', 422)
     }
 
-    const { title, description, lat, lng, address, creator } = req.body
+    const { title, description, lat, lng, address } = req.body
     const createdPlace = new Place({
         title,
         description,
         address,
         location: { lat, lng },
         image: req.file.path,
-        creator
+        creator: req.userData.userId
     })
 
     let user
     try {
-        user = await User.findById(creator)
+        user = await User.findById(req.userData.userId)
     } catch (error) {
         const err = new HttpError(
             'Could not find user for provided id.',
