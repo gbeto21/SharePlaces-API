@@ -9,7 +9,6 @@ const placesRoutes = require('./routes/places-routes')
 const usersRoutes = require('./routes/user-routes')
 const HttpError = require('./models/http-error')
 const app = express()
-const config = require('./config')
 
 app.use(bodyParser.json())
 app.use('/uploads/images', express.static(path.join('uploads', 'images')))

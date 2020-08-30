@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken')
 
 const HttpError = require("../models/http-error")
-const config = require('../config')
 module.exports = (req, res, next) => {
 
     if (req.method === 'OPTIONS') {
