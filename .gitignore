@@ -27,3 +27,6 @@ config.js
 
 #uploads
 /uploads
+
+#nodemon
+nodemon.json

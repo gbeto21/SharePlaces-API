@@ -40,7 +40,7 @@ app.use((error, req, res, next) => {
 })
 
 mongoose
-    .connect(`mongodb+srv://${config.db.user}:${config.db.password}@${config.db.cluster}.xuzor.mongodb.net/${config.db.database}?retryWrites=true&w=majority`)
+    .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.CLUSTER}.xuzor.mongodb.net/${process.env.DB}?retryWrites=true&w=majority`)
     .then(() => {
         app.listen(5000)
     })

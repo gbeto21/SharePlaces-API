@@ -2,7 +2,6 @@ const { validationResult } = require('express-validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const config = require('../config')
 const HttpError = require('../models/http-error')
 const User = require('../models/user')
 const { create } = require('../models/user')
@@ -73,7 +72,7 @@ const signup = async (req, res, next) => {
     try {
         token = jwt.sign(
             { userId: createdUser.id, email: createdUser.email },
-            config.token.secretword,
+            process.env.SECRET_WORD,
             { expiresIn: '1h' }
         )
     } catch (error) {
@@ -134,7 +133,7 @@ const login = async (req, res, next) => {
     try {
         token = jwt.sign(
             { userId: existingUser.id, email: existingUser.email },
-            config.token.secretword,
+            process.env.SECRET_WORD,
             { expiresIn: '1h' }
         )
     } catch (error) {
