@@ -26,22 +26,30 @@ app.use((req, res, next) => {
     throw error
 })
 app.use((error, req, res, next) => {
-    if (req.file 
-        && req.route.path !=='/signup'
+    try {
+
+        if (req.file
+            && req.route.path !== '/signup'
         ) {
-        // fs.unlink(req.file.path, (err) => {
-        //     console.log('Error validating signup.');
-        //     console.log(err);
-        // })
+            fs.unlink(req.file.path, (err) => {
+                console.log('Error validating signup.');
+                console.log(err);
+            })
+        }
+        if (res.headerSent) {
+            return next(error)
+        }
+        res.status(
+            // error.code 
+            // || 
+            500)
+        res.json({ message: error.message || 'An unknow error occurred!' })
+    } catch (error) {
+        console.log('Catch error.');
+        if (error) {
+            console.error(error);
+        }
     }
-    if (res.headerSent) {
-        return next(error)
-    }
-    res.status(
-        // error.code 
-        // || 
-        500)
-    res.json({ message: error.message || 'An unknow error occurred!' })
 })
 
 mongoose
