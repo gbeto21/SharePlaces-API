@@ -19,6 +19,7 @@ const getUsers = async (req, res, next) => {
 
 const signup = async (req, res, next) => {
 
+    console.log('Try signup.');
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         return next(
@@ -29,6 +30,7 @@ const signup = async (req, res, next) => {
     const { name, email, password } = req.body
     let existingUser
     try {
+        console.log('Try validate findOne.');
         existingUser = await User.findOne({ email: email })
 
     } catch (error) {
