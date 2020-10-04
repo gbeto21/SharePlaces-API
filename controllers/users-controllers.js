@@ -53,7 +53,7 @@ const signup = async (req, res, next) => {
     const createdUser = new User({
         name,
         email,
-        image: req.file.path,
+        image: req.protocol + '://' + req.get('host') + "/" + req.file.path.replace('\\','/').replace('\\','/'),
         password: hashedPassword,
         places: []
     })
@@ -62,7 +62,7 @@ const signup = async (req, res, next) => {
         await createdUser.save()
     } catch (error) {
         const err = new HttpError(
-            'Signing up failed, please try again.',
+            'Signing up failed, trying saving, please try again.',
             500
         )
         return next(err)
@@ -72,12 +72,12 @@ const signup = async (req, res, next) => {
     try {
         token = jwt.sign(
             { userId: createdUser.id, email: createdUser.email },
-            process.env.SECRET_WORD,
+            process.env.SECRET_WORD || 'test',
             { expiresIn: '1h' }
         )
     } catch (error) {
         const err = new HttpError(
-            'Signing up failed, please try again.',
+            'Signing up failed, trying tokening, please try again.',
             500
         )
         return next(err)
@@ -133,7 +133,7 @@ const login = async (req, res, next) => {
     try {
         token = jwt.sign(
             { userId: existingUser.id, email: existingUser.email },
-            process.env.SECRET_WORD,
+            process.env.SECRET_WORD || 'test',
             { expiresIn: '1h' }
         )
     } catch (error) {

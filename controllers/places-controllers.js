@@ -71,7 +71,7 @@ const createPlace = async (req, res, next) => {
         description,
         address,
         location: { lat, lng },
-        image: req.file.path,
+        image: req.protocol + '://' + req.get('host') + "/" + req.file.path.replace('\\','/').replace('\\','/'),
         creator: req.userData.userId
     })
 
