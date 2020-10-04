@@ -27,7 +27,6 @@ app.use((req, res, next) => {
 })
 app.use((error, req, res, next) => {
     try {
-
         if (req.file
             && req.route.path !== '/signup'
         ) {
@@ -45,7 +44,6 @@ app.use((error, req, res, next) => {
             500)
         res.json({ message: error.message || 'An unknow error occurred!' })
     } catch (error) {
-        console.log('Catch error.');
         if (error) {
             console.error(error);
         }
