@@ -29,16 +29,31 @@ const MIME_TYPE_MAP = {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const isValid = MIME_TYPE_MAP[file.mimetype]
-        let error = new Error("Invalid mime type")
-        if (isValid) {
-            error = null
+        try {
+            console.log('Storage file upload.');
+            const isValid = MIME_TYPE_MAP[file.mimetype]
+            let error = new Error("Invalid mime type")
+            if (isValid) {
+                error = null
+            }
+            cb(error, "images")
+            
+        } catch (error) {
+            console.log('Catch destination file upload.');
+            console.log(error);
         }
-        cb(error, "images")
     },
     filename: (req, file, cb) => {
-        const ext = MIME_TYPE_MAP[file.mimetype]
-        cb(null, uuidv4() + '.' + ext)
+        try {
+            console.log('File name file upload.');
+            const ext = MIME_TYPE_MAP[file.mimetype]
+            cb(null, uuidv4() + '.' + ext)
+            
+        } catch (error) {
+            console.log('Catch filename file upload.');
+            console.log(error);
+            
+        }
     }
 })
 
