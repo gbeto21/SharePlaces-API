@@ -15,7 +15,8 @@ router.use(checkAuth)
 
 router.post(
     '/',
-    fileUpload.single('image'),
+    //fileUpload.single('image'),
+    fileUpload,
     [
         check('title')
             .not()
