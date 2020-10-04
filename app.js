@@ -29,10 +29,10 @@ app.use((error, req, res, next) => {
     if (req.file 
         && req.route.path !=='/signup'
         ) {
-        fs.unlink(req.file.path, (err) => {
-            console.log('Error validating signup.');
-            console.log(err);
-        })
+        // fs.unlink(req.file.path, (err) => {
+        //     console.log('Error validating signup.');
+        //     console.log(err);
+        // })
     }
     if (res.headerSent) {
         return next(error)
