@@ -11,6 +11,7 @@ router.get('/', usersControllers.getUsers)
 router.post(
     '/signup',
     //fileUpload.single('image'),
+    fileUpload,
     [
         check('name').not().isEmpty(),
         check('email').normalizeEmail().isEmail(),
